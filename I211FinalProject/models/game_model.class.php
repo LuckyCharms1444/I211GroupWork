@@ -124,11 +124,10 @@ class GameModel {
         $query = $this->dbConnection->query($sql);
 
         if ($query && $query->num_rows > 0) {
-
-            //game_id isn't getting passed in.
+            //game_id isn't getting passed in
 
             /* tried creating an alternative was of object creation. Also doesn't work */
-
+            //I wonder if we need to work on the sql statement some more. I do not know if it is working correctly
 /*            //array to store all games
             $games = array();
 
