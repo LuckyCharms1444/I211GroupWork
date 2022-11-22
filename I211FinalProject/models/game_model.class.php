@@ -34,6 +34,11 @@ class GameModel {
         foreach ($_GET as $key => $value) {
             $_GET[$key] = $this->dbConnection->real_escape_string($value);
         }
+        //initialize game genre
+        if (!isset($_SESSION['genre_id'])) {
+            $genres = $this->get_genre();
+            $_SESSION['genre_id'] = $genres;
+        }
     }
 
     //static method to ensure there is just one MovieModel instance
@@ -243,6 +248,25 @@ class GameModel {
 
         //execute the query
         return $this->dbConnection->query($sql);
+    }
+
+    //get all game genre
+    private function get_genre() {
+        $sql = "SELECT * FROM " . $this->tblGameGenre;
+
+        //execute the query
+        $query = $this->dbConnection->query($sql);
+
+        if (!$query) {
+            return false;
+        }
+
+        //loop through all rows
+        $genres = array();
+        while ($obj = $query->fetch_object()) {
+            $genres[$obj->genre] = $obj->genre_id;
+        }
+        return $genres;
     }
 
 
